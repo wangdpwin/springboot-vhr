@@ -64,7 +64,7 @@ public class RoleController {
     @RequestMapping(value = "/add")
     public String add(Role role) {
         try {
-            roleService.save(role);
+//            roleService.save(role);
             return "success";
         } catch (Exception e) {
             e.printStackTrace();

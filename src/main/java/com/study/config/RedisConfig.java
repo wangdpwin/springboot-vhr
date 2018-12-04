@@ -2,10 +2,13 @@ package com.study.config;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -30,6 +33,15 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Value("${spring.redis.pool.max-wait}")
     private long maxWaitMillis;
 
+
+
+    @Bean
+    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
+        redisTemplate.setConnectionFactory(factory);
+        return redisTemplate;
+    }
+
     @Bean
     public JedisPool redisPoolFactory() {
         Logger.getLogger(getClass()).info("JedisPool注入成功！！");
@@ -37,9 +49,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
-
         JedisPool jedisPool = new JedisPool(jedisPoolConfig, host, port, timeout);
-
         return jedisPool;
     }
 
