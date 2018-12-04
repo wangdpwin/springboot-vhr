@@ -6,12 +6,15 @@ import com.study.model.UserRole;
 import com.study.service.UserRoleService;
 import com.study.service.UserService;
 import com.study.util.PasswordHelper;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,12 +24,15 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/users")
+@RequiresAuthentication
 public class UserController {
+
     @Resource
     private UserService userService;
     @Resource
     private UserRoleService userRoleService;
 
+    @RequiresRoles(value={"user"},logical=Logical.OR)
     @RequestMapping
     public Map<String,Object> getAll(User user, String draw,
                                      @RequestParam(required = false, defaultValue = "1") int start,
@@ -61,6 +67,7 @@ public class UserController {
         }
     }
 
+    @RequiresPermissions(value={"user:a","user:b"},logical=Logical.OR)
     @RequestMapping(value = "/add")
     public String add(User user) {
         User u = userService.selectByUsername(user.getUsername());
@@ -70,7 +77,7 @@ public class UserController {
             user.setEnable(1);
             PasswordHelper passwordHelper = new PasswordHelper();
             passwordHelper.encryptPassword(user);
-            userService.save(user);
+//            userService.save(user);
             return "success";
         } catch (Exception e) {
             e.printStackTrace();

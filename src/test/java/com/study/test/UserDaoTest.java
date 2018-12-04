@@ -21,13 +21,13 @@ public class UserDaoTest {
         user.setId(2l);
         user.setUserName("小明");
         user.setPassWord("fffooo123");
-        userDao.save(user);
+//        userDao.save(user);
     }
 
     @Test
     public void findUserByUserName(){
-        UserEntity user= userDao.get("小明");
-        System.out.println("user is "+user);
+//        UserEntity user= userDao.get("小明");
+//        System.out.println("user is "+user);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class UserDaoTest {
         user.setId(2l);
         user.setUserName("天空");
         user.setPassWord("fffxxxx");
-        userDao.update(user);
+//        userDao.update(user);
     }
 
     @Test

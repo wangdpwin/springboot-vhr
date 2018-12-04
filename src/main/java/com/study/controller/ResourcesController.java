@@ -9,8 +9,6 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import tk.mybatis.mapper.entity.Example;
-
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +59,7 @@ public class ResourcesController {
     @RequestMapping(value = "/add")
     public String add(Resources resources){
         try{
-            resourcesService.save(resources);
+//            resourcesService.save(resources);
             //更新权限
             shiroService.updatePermission();
             return "success";
@@ -74,7 +72,7 @@ public class ResourcesController {
     @RequestMapping(value = "/delete")
     public String delete(Integer id){
         try{
-            resourcesService.delete(id);
+//            resourcesService.delete(id);
             //更新权限
             shiroService.updatePermission();
             return "success";
