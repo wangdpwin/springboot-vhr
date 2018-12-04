@@ -1,18 +1,19 @@
 package com.study.dao;
 
-import com.study.model.mongoDB.UserEntity;
-import java.util.List;
+import com.study.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-public interface UserDao {
+public interface UserDao extends JpaRepository<User,Long> {
 
-    public void save(UserEntity user);
+    User findById(Long id);
 
-    public UserEntity get(String userName);
+    User findByUsername(String username);
 
-    public void update(UserEntity user);
-
-    public void delete(Long id);
-
-    public List<UserEntity> query(String keyword);
+//    @Query("select user from User where username = :username")
+//    Page findUserPage(Pageable pageable, @Param("username") String username);
 
 }

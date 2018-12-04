@@ -21,6 +21,7 @@ import java.util.Map;
  */
 @Controller
 public class HomeController {
+
     @RequestMapping(value="/login",method= RequestMethod.GET)
     public String login(){
         return "login";
@@ -47,6 +48,7 @@ public class HomeController {
             return "login";
         }
     }
+
     @RequestMapping(value={"/usersPage",""})
     public String usersPage(){
         return "user/users";

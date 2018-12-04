@@ -3,32 +3,42 @@ package com.study.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * user类
+ */
+@Entity(name = "user")
+@Table(name = "t_user")
 public class User implements Serializable{
+
     private static final long serialVersionUID = -8736616045315083846L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
+    @Column(nullable = false)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
     /**
      * 是否启用
      */
+    @Column(nullable = true)
     private Integer enable;
 
     /**
      * @return id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
